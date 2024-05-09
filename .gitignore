@@ -1,0 +1,10 @@
+/_build/
+/_install/
+
+/.vscode/
+/.vslick/
+
+/target-syslibs/
+/target-utils/
+/tdi/
+/zlog/
