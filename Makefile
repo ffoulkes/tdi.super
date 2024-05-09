@@ -4,7 +4,12 @@
 INSTALL_PREFIX = -DCMAKE_INSTALL_PREFIX=_install
 
 .PHONY: all
-all: tdi
+all: googletest tdi
+
+.PHONY: googletest
+googletest:
+	cmake -B _build/googletest -S googletest ${INSTALL_PREFIX}
+	cmake --build _build/googletest --target install
 
 .PHONY: zlog
 zlog:

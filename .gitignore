@@ -4,6 +4,7 @@
 /.vscode/
 /.vslick/
 
+/googletest/
 /target-syslibs/
 /target-utils/
 /tdi/
