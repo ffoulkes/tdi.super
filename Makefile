@@ -14,12 +14,21 @@ all: googletest tdi
 clean:
 	rm -fr ${BUILD_DIR} ${INSTALL_DIR}
 
+.PHONY: cjson
+cjson:
+	cmake -B ${BUILD_DIR}/cjson \
+	    -S ${SOURCE_DIR}/cJSON \
+	    -DBUILD_SHARED_AND_STATIC_LIBS=ON \
+	    -DENABLE_CJSON_TEST=OFF \
+	    ${INSTALL_PREFIX}
+	cmake --build ${BUILD_DIR}/cjson --target install
+
 .PHONY: googletest
 googletest:
 	cmake -B ${BUILD_DIR}/googletest \
 	    -S ${SOURCE_DIR}/googletest \
 	    ${INSTALL_PREFIX}
-	cmake --build ${BUILD_DIR}/googletest --target install
+	cmake --build ${BUILD_DIR}/googletest -j4 --target install
 
 .PHONY: targetsys
 targetsys: zlog
@@ -29,14 +38,14 @@ targetsys: zlog
 	cmake --build ${BUILD_DIR}/targetsys --target install
 
 .PHONY: targetutils
-targetutils: targetsys
+targetutils: targetsys cjson
 	cmake -B ${BUILD_DIR}/targetutils \
 	    -S ${SOURCE_DIR}/target-utils \
 	    ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/targetutils -j4 --target install
 
 .PHONY: tdi
-tdi: targetsys targetutils
+tdi: targetsys targetutils # (cjson)
 	cmake -B ${BUILD_DIR}/tdi -S ${SOURCE_DIR}/tdi ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/tdi -j4 --target install
 
