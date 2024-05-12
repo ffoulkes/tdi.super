@@ -1,11 +1,13 @@
 /_build/
-/_install/
+/install/
 
+# Editors
 /.vscode/
 /.vslick/
 
-/googletest/
-/target-syslibs/
-/target-utils/
-/tdi/
-/zlog/
+# BuildStream (for now)
+/elements
+/project.conf
+
+# Source folders
+/packages
