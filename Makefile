@@ -23,6 +23,11 @@ cjson:
 	    ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/cjson --target install
 
+.PHONY: judy
+judy:
+	cmake -B ${BUILD_DIR}/judy -S ${SOURCE_DIR}/judy ${INSTALL_PREFIX}
+	cmake --build ${BUILD_DIR}/judy -j4 --target install
+
 .PHONY: googletest
 googletest:
 	cmake -B ${BUILD_DIR}/googletest \
