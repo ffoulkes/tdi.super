@@ -43,7 +43,7 @@ targetsys: zlog
 	cmake --build ${BUILD_DIR}/targetsys --target install
 
 .PHONY: targetutils
-targetutils: targetsys cjson judy
+targetutils: targetsys cjson judy tommyds
 	cmake -B ${BUILD_DIR}/targetutils \
 	    -S ${SOURCE_DIR}/target-utils \
 	    ${INSTALL_PREFIX}
@@ -53,6 +53,11 @@ targetutils: targetsys cjson judy
 tdi: targetsys targetutils # (cjson)
 	cmake -B ${BUILD_DIR}/tdi -S ${SOURCE_DIR}/tdi ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/tdi -j4 --target install
+
+.PHONY: tommyds
+tommyds:
+	cmake -B ${BUILD_DIR}/tommyds -S ${SOURCE_DIR}/tommyds ${INSTALL_PREFIX}
+	cmake --build ${BUILD_DIR}/tommyds -j4 --target install
 
 .PHONY: zlog
 zlog:
