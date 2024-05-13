@@ -24,7 +24,7 @@ cjson:
 	cmake --build ${BUILD_DIR}/cjson --target install
 
 .PHONY: judy
-judy:
+judy: targetsys
 	cmake -B ${BUILD_DIR}/judy -S ${SOURCE_DIR}/judy ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/judy -j4 --target install
 
@@ -43,7 +43,7 @@ targetsys: zlog
 	cmake --build ${BUILD_DIR}/targetsys --target install
 
 .PHONY: targetutils
-targetutils: targetsys cjson
+targetutils: targetsys cjson judy
 	cmake -B ${BUILD_DIR}/targetutils \
 	    -S ${SOURCE_DIR}/target-utils \
 	    ${INSTALL_PREFIX}
