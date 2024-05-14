@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 BUILD_DIR = _build
-SOURCE_DIR = packages
+SOURCE_DIR = pkgs
 INSTALL_DIR = install
 
 INSTALL_PREFIX = -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
@@ -35,8 +35,19 @@ googletest:
 	    ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/googletest -j4 --target install
 
+.PHONY: gperftools
+gperftools: gperftools
+	cmake -B ${BUILD_DIR}/gperftools \
+	    -S ${SOURCE_DIR}/gperftools \
+	    -DCMAKE_BUILD_TYPE=Release \
+	    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+	    -DBUILD_SHARED_LIBS=OFF \
+	    -DBUILD_TESTING=OFF \
+	    -Dgperftools_build_benchmark=OFF
+	cmake --build ${BUILD_DIR}/gperftools -j4
+
 .PHONY: targetsys
-targetsys: zlog
+targetsys: gperftools zlog
 	cmake -B ${BUILD_DIR}/targetsys \
 	    -S ${SOURCE_DIR}/target-syslibs \
 	    ${INSTALL_PREFIX}
