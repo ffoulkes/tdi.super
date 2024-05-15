@@ -35,16 +35,21 @@ googletest:
 	    ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/googletest -j4 --target install
 
+GPERF_SOURCE_DIR = $(shell realpath ${SOURCE_DIR}/gperftools)
+GPERF_BUILD_DIR = $(shell realpath -m ${BUILD_DIR}/gperftools)
+
 .PHONY: gperftools
-gperftools: gperftools
-	cmake -B ${BUILD_DIR}/gperftools \
-	    -S ${SOURCE_DIR}/gperftools \
-	    -DCMAKE_BUILD_TYPE=Release \
-	    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-	    -DBUILD_SHARED_LIBS=OFF \
-	    -DBUILD_TESTING=OFF \
-	    -Dgperftools_build_benchmark=OFF
-	cmake --build ${BUILD_DIR}/gperftools -j4
+gperftools:
+	(cd ${GPERF_SOURCE_DIR}; ./autogen.sh || true)
+	rm -fr ${GPERF_BUILD_DIR}
+	mkdir -p ${GPERF_BUILD_DIR}/build
+	(cd ${GPERF_BUILD_DIR}/build; \
+	    ${GPERF_SOURCE_DIR}/configure \
+	        --prefix=${GPERF_BUILD_DIR}/install \
+		--datarootdir=/tmp/gperftools \
+		--disable-shared \
+		CXXFLAGS="-O3 -fPIC")
+	(cd ${GPERF_BUILD_DIR}/build; make install -j6 V=0)
 
 .PHONY: targetsys
 targetsys: gperftools zlog
