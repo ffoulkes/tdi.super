@@ -54,14 +54,14 @@ gperftools:
 .PHONY: targetsys
 targetsys: gperftools zlog
 	cmake -B ${BUILD_DIR}/targetsys \
-	    -S ${SOURCE_DIR}/target-syslibs \
+	    -S ${SOURCE_DIR}/targetsys \
 	    ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/targetsys --target install
 
 .PHONY: targetutils
 targetutils: targetsys cjson judy tommyds xxhash
 	cmake -B ${BUILD_DIR}/targetutils \
-	    -S ${SOURCE_DIR}/target-utils \
+	    -S ${SOURCE_DIR}/targetutils \
 	    ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/targetutils -j4 --target install
 
