@@ -71,10 +71,16 @@ clean-gperftools:
 
 #-----------------------------------------------------------------------
 
+ifeq (${TCMALLOC},1)
+TCMALLOC_OPTION = -DTCMALLOC=ON
+TCMALLOC_DEPEND = gperftools
+endif
+
 .PHONY: targetsys
-targetsys: zlog # gperftools
+targetsys: zlog ${TCMALLOC_DEPEND}
 	cmake -B ${BUILD_DIR}/targetsys \
 	    -S ${SOURCE_DIR}/targetsys \
+	    ${TCMALLOC_OPTION} \
 	    ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/targetsys --target install
 
