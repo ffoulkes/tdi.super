@@ -8,7 +8,7 @@ INSTALL_DIR = install
 INSTALL_PREFIX = -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
 .PHONY: all
-all: googletest tdi
+all: googletest tdi targetutils
 
 .PHONY: clean
 clean:
@@ -72,7 +72,7 @@ clean-gperftools:
 #-----------------------------------------------------------------------
 
 .PHONY: targetsys
-targetsys: gperftools zlog
+targetsys: zlog # gperftools
 	cmake -B ${BUILD_DIR}/targetsys \
 	    -S ${SOURCE_DIR}/targetsys \
 	    ${INSTALL_PREFIX}
@@ -98,7 +98,7 @@ clean-targetutils:
 #-----------------------------------------------------------------------
 
 .PHONY: tdi
-tdi: targetsys targetutils # (cjson)
+tdi: targetsys cjson
 	cmake -B ${BUILD_DIR}/tdi -S ${SOURCE_DIR}/tdi ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/tdi -j4 --target install
 
