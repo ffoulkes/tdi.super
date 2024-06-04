@@ -8,6 +8,3 @@
 # BuildStream (for now)
 /elements
 /project.conf
-
-# Source folders
-/pkgs

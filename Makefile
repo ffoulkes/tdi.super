@@ -4,6 +4,7 @@
 BUILD_DIR = _build
 SOURCE_DIR = pkgs
 INSTALL_DIR = install
+PARALLEL = -j4
 
 INSTALL_PREFIX = -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 
@@ -34,7 +35,7 @@ clean-cjson:
 .PHONY: judy
 judy: targetsys
 	cmake -B ${BUILD_DIR}/judy -S ${SOURCE_DIR}/judy ${INSTALL_PREFIX}
-	cmake --build ${BUILD_DIR}/judy -j4 --target install
+	cmake --build ${BUILD_DIR}/judy ${PARALLEL} --target install
 
 .PHONY: clean-judy
 clean-judy:
@@ -47,7 +48,7 @@ googletest:
 	cmake -B ${BUILD_DIR}/googletest \
 	    -S ${SOURCE_DIR}/googletest \
 	    ${INSTALL_PREFIX}
-	cmake --build ${BUILD_DIR}/googletest -j4 --target install
+	cmake --build ${BUILD_DIR}/googletest ${PARALLEL} --target install
 
 .PHONY: clean-googletest
 clean-googletest:
@@ -63,7 +64,7 @@ gperftools:
 	cmake -B ${BUILD_DIR}/gperftools\
 	    -S ${SOURCE_DIR}/gperftools.build \
 	    ${INSTALL_PREFIX}
-	cmake --build ${BUILD_DIR}/gperftools -j4
+	cmake --build ${BUILD_DIR}/gperftools ${PARALLEL}
 
 .PHONY: clean-gperftools
 clean-gperftools:
@@ -95,7 +96,7 @@ targetutils: targetsys cjson judy tommyds xxhash
 	cmake -B ${BUILD_DIR}/targetutils \
 	    -S ${SOURCE_DIR}/targetutils \
 	    ${INSTALL_PREFIX}
-	cmake --build ${BUILD_DIR}/targetutils -j4 --target install
+	cmake --build ${BUILD_DIR}/targetutils ${PARALLEL} --target install
 
 .PHONY: clean-targetutils
 clean-targetutils:
@@ -104,9 +105,9 @@ clean-targetutils:
 #-----------------------------------------------------------------------
 
 .PHONY: tdi
-tdi: targetsys cjson
+tdi: targetsys targetutils # cjson (doesn't create legacy symlink)
 	cmake -B ${BUILD_DIR}/tdi -S ${SOURCE_DIR}/tdi ${INSTALL_PREFIX}
-	cmake --build ${BUILD_DIR}/tdi -j4 --target install
+	cmake --build ${BUILD_DIR}/tdi ${PARALLEL} --target install
 
 .PHONY: clean-tdi
 clean-tdi:
@@ -117,7 +118,7 @@ clean-tdi:
 .PHONY: tommyds
 tommyds:
 	cmake -B ${BUILD_DIR}/tommyds -S ${SOURCE_DIR}/tommyds ${INSTALL_PREFIX}
-	cmake --build ${BUILD_DIR}/tommyds -j4 --target install
+	cmake --build ${BUILD_DIR}/tommyds ${PARALLEL} --target install
 
 .PHONY: clean-tommyds
 clean-tommyds:

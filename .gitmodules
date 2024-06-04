@@ -1,0 +1,30 @@
+[submodule "pkgs/googletest"]
+	path = pkgs/googletest
+	url = https://github.com/google/googletest.git
+[submodule "pkgs/gperftools.build"]
+	path = pkgs/gperftools.build
+	url = https://github.com/intel-sandbox/ganga.gperftools.build.git
+[submodule "pkgs/judy"]
+	path = pkgs/judy
+	url = https://github.com/intel-sandbox/ganga.judy.git
+[submodule "pkgs/targetsys"]
+	path = pkgs/targetsys
+	url = https://github.com/intel-sandbox/ganga.targetsys.git
+[submodule "pkgs/targetutils"]
+	path = pkgs/targetutils
+	url = https://github.com/intel-sandbox/ganga.targetutils.git
+[submodule "pkgs/tdi"]
+	path = pkgs/tdi
+	url = https://github.com/intel-sandbox/ganga.tdi.git
+[submodule "pkgs/tommyds"]
+	path = pkgs/tommyds
+	url = https://github.com/intel-sandbox/ganga.tommyds.git
+[submodule "pkgs/zlog"]
+	path = pkgs/zlog
+	url = https://github.com/intel-sandbox/ganga.zlog.git
+[submodule "pkgs/cJSON"]
+	path = pkgs/cJSON
+	url = https://github.com/intel-sandbox/ganga.cJSON.git
+[submodule "pkgs/xxHash"]
+	path = pkgs/xxHash
+	url = https://github.com/intel-sandbox/ganga.xxHash.git
