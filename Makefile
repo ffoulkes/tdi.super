@@ -105,7 +105,7 @@ clean-targetutils:
 #-----------------------------------------------------------------------
 
 .PHONY: tdi
-tdi: targetsys targetutils # cjson (doesn't create legacy symlink)
+tdi: targetsys cjson
 	cmake -B ${BUILD_DIR}/tdi -S ${SOURCE_DIR}/tdi ${INSTALL_PREFIX}
 	cmake --build ${BUILD_DIR}/tdi ${PARALLEL} --target install
 
