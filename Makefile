@@ -1,7 +1,7 @@
 # Copyright 2024 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
-BUILD_DIR = _build
+BUILD_DIR = build
 SOURCE_DIR = pkgs
 INSTALL_DIR = install
 PARALLEL = -j4
